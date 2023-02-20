@@ -1,13 +1,19 @@
-apiVersion: backstage.io/v1alpha1
-kind: Component
+apiVersion: v1
+kind: Service
 metadata:
-  name: demo-app
-  description: An example of a Backstage application.
-  # Example for optional annotations
-  # annotations:
-  #   github.com/project-slug: backstage/backstage
-  #   backstage.io/techdocs-ref: dir:.
+  name: my-service
+  annotations:
+    description: "This is a sample service for MyApp."
 spec:
-  type: website
-  owner: john@example.com
-  lifecycle: experimental
+  selector:
+    app: MyApp
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
+  links:
+    - name: db
+      target: my-db
+  annotations:
+    db-version: "1.2.3"
